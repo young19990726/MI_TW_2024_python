@@ -15,52 +15,13 @@ def get_token():
     response = requests.post(url, data=payload, timeout=30)
 
     if response.status_code == 200:
-        token_data = response.json()
+        token_data = response.json()['access_token']
         print(token_data)
         # print("Token:", token_data['access_token'])
-        return token_data['access_token']
+        return token_data
     else:
         print(f"Failed to get token. Status code: {response.status_code}")
         print("Response:", response.text)
-
-
-def get_access_token(auth_code):
-
-    token_url = "http://172.18.0.58:8080/realms/mitw/protocol/openid-connect/auth"
-    client_id = "fhir-twcore-0.2.2"
-    client_secret = "6ML54AFeVgMLoRe7cKqshc3171UmD0CI"
-    redirect_uri = "http://172.18.0.53:10002/oauth2/callback"
-
-
-    payload = {
-        'grant_type': 'authorization_code',
-        'client_id': client_id,
-        'client_secret': client_secret,
-        'code': auth_code,
-        'redirect_uri': redirect_uri
-    }
-
-    try:
-
-        response = requests.post(token_url, data=payload, timeout=30)
-
-
-        if response.status_code == 200:
-            token_data = response.json()
-            access_token = token_data.get('access_token')
-            print("Access Token:", access_token)
-            return access_token
-        else:
-            print(f"Failed to get access token. Status code: {response.status_code}")
-            print("Response:", response.text)
-            return None
-
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-        return None
-
-
-
 
 
 if __name__ == "__main__":

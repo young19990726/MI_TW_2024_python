@@ -4,8 +4,10 @@ import orjson
 import requests
 from fhir.resources.patient import Patient
 
-sApiUrl = 'http://fhirserver.ndmctsgh.edu.tw:18080/fhir/Patient'
-sJWT = ''
+from utilities.python.forOauth import get_token
+
+sApiUrl = 'http://172.18.0.60:8080/fhir/Patient'
+sJWT = get_token()
 
 # 讀入照片
 with open('photos/actor-1.jpg', 'rb') as image_file:
@@ -151,22 +153,22 @@ patient = Patient.parse_obj(patient_data)
 # 因為上面的問題，所以這裡使用 patient_data 進行序列化
 patient_json = orjson.dumps(patient_data, option=orjson.OPT_INDENT_2)
 
-# # 發送 POST 請求到 HAPI FHIR 伺服器
-# url = f'{sApiUrl}'
+# 發送 POST 請求到 HAPI FHIR 伺服器
+url = f'{sApiUrl}'
+headers = {"Content-Type": "application/fhir+json",
+           'Authorization': f'Bearer {sJWT}'
+           }
+response = requests.post(url, data=patient_json, headers=headers)
+
+print(response.status_code)
+print(orjson.dumps(response.json(), option=orjson.OPT_INDENT_2).decode('utf-8'))
+
+# # for update patient
+# ptid = '108'
+# url = f'{sApiUrl}/{ptid}'
 # headers = {"Content-Type": "application/fhir+json",
 #            # 'Authorization': f'Bearer {sJWT}'
 #            }
-# response = requests.post(url, data=patient_json, headers=headers)
-# 
+# response = requests.put(url, data=patient_json, headers=headers)
 # print(response.status_code)
 # print(response.json())
-
-# for update patient
-ptid = '108'
-url = f'{sApiUrl}/{ptid}'
-headers = {"Content-Type": "application/fhir+json",
-           # 'Authorization': f'Bearer {sJWT}'
-           }
-response = requests.put(url, data=patient_json, headers=headers)
-print(response.status_code)
-print(response.json())

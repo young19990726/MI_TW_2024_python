@@ -1,12 +1,13 @@
 import orjson
 import requests
 
-sApiUrl = 'http://fhirserver.ndmctsgh.edu.tw:18080/fhir/Organization'
-sJWT = ''
+from utilities.python.forOauth import get_token
+
+sApiUrl = 'http://172.18.0.60:8080/fhir/Organization'
+sJWT = get_token()
 
 organization = {
     "resourceType": "Organization",
-    "id": "109",
     "meta": {
         "profile": ["https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Organization-hosp-twcore"]
     },
@@ -109,12 +110,12 @@ organization = {
     ]
 }
 
-organization_json = orjson.dumps(organization)
+organization_json = orjson.dumps(organization, option=orjson.OPT_INDENT_2)
 
 # 發送 POST 請求到 HAPI FHIR 伺服器
 url = f'{sApiUrl}'
 headers = {"Content-Type": "application/fhir+json",
-           # 'Authorization': f'Bearer {YOUR_JWT_TOKEN}'
+           'Authorization': f'Bearer {sJWT}'
            }
 response = requests.post(url, data=organization_json, headers=headers)
 
