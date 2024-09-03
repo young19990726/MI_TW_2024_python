@@ -1,0 +1,101 @@
+{
+  "resourceType": "Observation",
+  "meta": {
+    "profile": [
+      "https://standard-interoperability-lab.com/fhir/StructureDefinition/Observationtwcore"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative with Details</b></p><p><b>status</b>: final</p><p><b>code</b>: Genetic analysis master panel-- This is the parent OBR for the panel holding all of the associated observations that can be reported with a molecular genetics analysis result. <span>(Details : {LOINC code '55233-1' = 'Genetic analysis master panel - Blood or Tissue by Molecular genetics method', given as 'Genetic analysis master panel-- This is the parent OBR for the panel holding all of the associated observations that can be reported with a molecular genetics analysis result.'})</span></p><p><b>subject</b>: <a>Molecular Lab Patient ID: MEDNO=123456</a></p><p><b>issued</b>: 03/04/2024 3:30:10 PM</p><p><b>performer</b>: <a>Molecular Diagnostics Laboratory</a></p><p><b>value</b>: Positive <span>(Details : {SNOMED CT code '10828004' = 'Positive (qualifier value)', given as 'Positive'})</span></p><p><b>specimen</b>: <a>Molecular Specimen ID: MLD45-Z4-1234</a></p><p><b>effective</b>: 27/03/2024 3:30:10 PM</p></div>"
+  },
+  "component": [
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "48018-6",
+            "display": "Gene studied [ID]"
+          }
+        ],
+        "text": "Gene studied"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.genenames.org",
+            "code": "HGNC:3236",
+            "display": "EGFR"
+          }
+        ],
+        "text": "EGFR gene"
+      }
+    }
+  ],
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/observation-geneticsGene",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.genenames.org",
+            "code": "3236",
+            "display": "EGFR"
+          }
+        ]
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/observation-geneticsDNARegionName",
+      "valueString": "Exon 21"
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/observation-geneticsGenomicSourceClass",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "LA6684-0",
+            "display": "Somatic"
+          }
+        ]
+      }
+    }
+  ],
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "55233-1",
+        "display": "Genetic analysis master panel"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/108",
+    "display": "Molecular Lab Patient ID: MEDNO=123456"
+  },
+  "issued": "2024-04-03T15:30:10+01:00",
+  "performer": [
+    {
+      "reference": "Practitioner/103",
+      "display": "Molecular Diagnostics Laboratory"
+    }
+  ],
+  "valueCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "10828004",
+        "display": "Positive (qualifier value)"
+      }
+    ]
+  },
+  "specimen": {
+    "reference": "Specimen/120",
+    "display": "Molecular Specimen ID: MLD45-Z4-1234"
+  },
+  "effectiveDateTime": "2024-03-27T15:30:10+01:00"
+}

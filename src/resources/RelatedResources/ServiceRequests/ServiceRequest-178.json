@@ -1,0 +1,44 @@
+{
+  "resourceType": "ServiceRequest",
+  "status": "active",
+  "intent": "order",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/service-category",
+          "code": "7",
+          "display": "Community Health Care"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "85354-9",
+        "display": "Blood pressure panel with all children optional"
+      }
+    ],
+    "text": "Blood pressure measurement"
+  },
+  "subject": {
+    "reference": "Patient/108"
+  },
+  "authoredOn": "2024-08-12T12:00:00Z",
+  "requester": {
+    "reference": "Practitioner/103"
+  },
+  "reasonCode": [
+    {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "38341003",
+          "display": "Hypertensive disorder, systemic arterial"
+        }
+      ]
+    }
+  ]
+}

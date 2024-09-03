@@ -1,0 +1,106 @@
+{
+  "resourceType": "MedicationRequest",
+  "meta": {
+    "profile": [
+      "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/MedicationRequest-twcore"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h3><b>藥品請求的詳細資料： MGO 2# TID PC</b></h3></div>"
+  },
+  "identifier": [
+    {"system": "urn:oid:1.2.36.146.595.217.0.1", "value": "CURE_REC.PK_ID=8987e558-38d8-4211-b963-1ff81d86752b"}
+  ],
+  "status": "active",
+  "statusReason": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-status-reason",
+        "code": "clarif"
+      }
+    ]
+  },
+  "intent": "order",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+          "code": "outpatient"
+        }
+      ]
+    }
+  ],
+  "medicationCodeableConcept": {
+    "coding": [
+      {
+        "system": "https://twcore.mohw.gov.tw/ig/twcore/CodeSystem/medication-fda-tw",
+        "code": "衛署藥製字第013382號",
+        "display": "\"榮民\"氧化鎂錠250毫克"
+      }
+    ],
+    "text": "\"榮民\"氧化鎂錠250毫克"
+  },
+  "subject": {"reference": "Patient/108"},
+  "encounter": {"reference": "Encounter/111"},
+  "authoredOn": "2024-08-15T18:00:14+08:00",
+  "requester": {"reference": "Practitioner/103"},
+  "reasonReference": [
+    {"reference": "Observation/164"}
+  ],
+  "dosageInstruction": [
+    {
+      "text": "每日三餐飯後口服 500mg",
+      "timing": {
+        "code": {
+          "coding": [
+            {
+              "system": "https://twcore.mohw.gov.tw/ig/twcore/CodeSystem/medication-frequency-nhi-tw",
+              "code": "PC"
+            }
+          ],
+          "text": "三餐飯後"
+        },
+        "repeat": {
+          "frequency": 3,
+          "period": 1,
+          "periodUnit": "d"
+        }
+      },
+      "route": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "26643006"
+          }
+        ],
+        "text": "Oral route"
+      },
+      "doseAndRate": [
+        {
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+                "code": "ordered"
+              }
+            ]
+          },
+          "doseQuantity": {
+            "value": 2,
+            "unit": "TAB",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+            "code": "TAB"
+          }
+        }
+      ]
+    }
+  ],
+  "dispenseRequest": {
+    "validityPeriod": {
+      "start": "2024-08-16T18:00:14+08:00",
+      "end"  : "2024-08-23T18:00:14+08:00"
+    }
+  }
+}

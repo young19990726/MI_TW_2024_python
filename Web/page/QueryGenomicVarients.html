@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MolecularSequence 基因變異</title>
+    <script src="../resources/js/jquery.min.js"></script>
+</head>
+<body>
+<h1>MolecularSequence 基因變異查詢</h1>
+
+<!-- 建立表單讓使用者輸入資料 -->
+<form id="dataSearchForm">
+    <label for="strPtid">患者 ID:</label>
+    <input type="text" id="strPtid" name="strPtid" required><br><br>
+
+    <label for="strChrID">染色體 ID:</label>
+    <input type="text" id="strChrID" name="strChrID" required><br><br>
+
+    <label for="strVarStart">變異起始位點:</label>
+    <input type="text" id="strVarStart" name="strVarStart" required><br><br>
+
+    <label for="strVarEnd">變異結束位點:</label>
+    <input type="text" id="strVarEnd" name="strVarEnd" required><br><br>
+
+    <input type="submit" value="查詢">
+</form>
+
+<h2>查詢結果</h2>
+<table id="variants-table" border="1">
+    <thead>
+    <tr>
+        <th>變異起始位置</th>
+        <th>變異結束位置</th>
+        <th>參考等位基因</th>
+        <th>觀察到的等位基因</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 資料將插入於此 -->
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+        // 表單提交事件處理
+        $('#dataSearchForm').on('submit', function(event) {
+            event.preventDefault(); // 防止表單自動提交
+
+            // 獲取使用者輸入的資料
+            var dataSearch = {
+                "strPtid": $('#strPtid').val(),         // 患者 ID
+                "strChrID": $('#strChrID').val(),       // 染色體 ID
+                "strVarStart": $('#strVarStart').val(), // 變異起始位點
+                "strVarEnd": $('#strVarEnd').val()      // 變異結束位點
+            };
+
+            // 清空表格內容
+            $('#variants-table tbody').empty();
+
+            // 發送 AJAX 請求
+            $.ajax({
+                url: "http://127.0.0.1.:30001/api/Genomics/searchMolecularSequence", // API URL
+                type: "POST",             // 使用 POST 方法
+                contentType: "application/json", // 設置內容類型為 JSON
+                data: JSON.stringify(dataSearch), // 將 payload 轉換為 JSON 字符串
+                dataType: "json",         // 預期的回應數據類型為 JSON
+                success: function(response) {
+                    // 假設 response 是一個包含 MolecularSequence 資源的陣列
+                    response.entry.forEach(function(entry) {
+                        const sequence = entry.resource;
+
+                        // 檢查 sequence 是否有變異信息
+                        if (sequence.variant && sequence.variant.length > 0) {
+                            sequence.variant.forEach(function(variant) {
+                                // 提取相關的變異資料
+                                const variantStart = variant.start || "N/A";
+                                const variantEnd = variant.end || "N/A";
+                                const referenceAllele = variant.referenceAllele || "N/A";
+                                const observedAllele = variant.observedAllele || "N/A";
+
+                                // 將資料附加到表格中
+                                $("#variants-table tbody").append(
+                                    `<tr>
+                                            <td>${variantStart}</td>
+                                            <td>${variantEnd}</td>
+                                            <td>${referenceAllele}</td>
+                                            <td>${observedAllele}</td>
+                                        </tr>`
+                                );
+                            });
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.error("獲取 MolecularSequence 資料時出錯:", error);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

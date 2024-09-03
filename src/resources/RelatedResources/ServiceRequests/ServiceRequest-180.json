@@ -1,0 +1,48 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "180",
+  "meta": {
+    "versionId": "4",
+    "lastUpdated": "2024-08-26T08:29:38.599+00:00",
+    "source": "#yIf59sttGYhcxafb"
+  },
+  "status": "active",
+  "intent": "order",
+  "priority": "routine",
+  "code": {
+    "coding": [ {
+      "system": "http://snomed.info/sct",
+      "code": "3130004",
+      "display": "Monitoring of cardiac output by electrocardiogram"
+    } ],
+    "text": "Cardiac output monitoring"
+  },
+  "subject": {
+    "reference": "Patient/108",
+    "display": "高東萬"
+  },
+  "authoredOn": "2024-08-22T10:00:00Z",
+  "requester": {
+    "reference": "Practitioner/103",
+    "display": "John Smith"
+  },
+  "performer": [ {
+    "reference": "Practitioner/103",
+    "display": "John Smith"
+  } ],
+  "reasonCode": [ {
+    "coding": [ {
+      "system": "http://snomed.info/sct",
+      "code": "428750005",
+      "display": "Nonspecific ST-T abnormality on electrocardiogram (finding)"
+    } ],
+    "text": "Monitoring due to existing heart condition"
+  } ],
+  "note": [ {
+    "authorReference": {
+      "reference": "Practitioner/103"
+    },
+    "time": "2024-08-22T10:00:00Z",
+    "text": "Patient to be monitored twice daily."
+  } ]
+}

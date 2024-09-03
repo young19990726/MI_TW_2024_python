@@ -1,0 +1,32 @@
+{
+  "resourceType": "MedicationRequest",
+  "meta": {
+    "profile": [
+      "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/MedicationRequest-twcore"
+    ]
+  },
+  "status": "active",
+  "intent": "order",
+  "medicationCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+        "code": "123456",
+        "display": "Medication Example for blood pressure and heart rate twice daily"
+      }
+    ],
+    "text": "Medication Example for blood pressure and heart rate twice daily"
+  },
+  "subject": {
+    "reference": "Patient/108"
+  },
+  "authoredOn": "2024-08-20",
+  "requester": {
+    "reference": "Practitioner/103"
+  },
+  "note": [
+    {
+      "text": "Monitor blood pressure and heart rate twice daily, morning and evening, and record the values according to the prescription."
+    }
+  ]
+}
