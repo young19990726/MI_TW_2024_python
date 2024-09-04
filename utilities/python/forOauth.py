@@ -6,10 +6,8 @@ def get_token():
     # url = "http://220.128.182.166/realms/medical-server/protocol/openid-connect/token"
     payload = {
         'grant_type': 'client_credentials',
-        # 'client_id': 'yenyen1007',
-        # 'client_secret': 'qwertyu'
-        'client_id': 'fhir-twcore-0.2.2',
-        'client_secret': '6ML54AFeVgMLoRe7cKqshc3171UmD0CI'
+        'client_id': 'fhir-basic',
+        'client_secret': 'UPa9VGhlwrInNup2W8PBldrxanWWsKW4'
     }
 
     response = requests.post(url, data=payload, timeout=30)

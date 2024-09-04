@@ -6,7 +6,8 @@ from fhir.resources.patient import Patient
 
 from utilities.python.forOauth import get_token
 
-sApiUrl = 'http://172.18.0.60:8080/fhir/Patient'
+
+sApiUrl = 'http://172.18.0.53:10004/fhir/Patient'
 sJWT = get_token()
 
 # 讀入照片
@@ -22,10 +23,8 @@ patient_data = {
     "resourceType": "Patient",
     "id": "108",
     "meta": {
-        "versionId": "7",
-        "lastUpdated": "2024-08-16T06:45:35.427+00:00",
-        "source": "#Grc5DcMSVySTL5O9",
-        "profile": ["https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Patient-twcore"]
+        # "profile": ["https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Patient-twcore"]
+        "profile": ["https://hapi.fhir.tw/fhir/StructureDefinition/MITW-T1-SC1-PatientCore"]
     },
     "text": {
         "status": "generated",
@@ -61,7 +60,7 @@ patient_data = {
                 }
             }]
         },
-        "system": "http://www.moi.gov.tw",
+        "system": "http://www.moi.gov.tw/",
         "value": "A111111114"
     }],
     "active": True,
@@ -144,7 +143,7 @@ patient_data = {
         }
     }],
     "managingOrganization": {
-        "reference": "Organization/109"
+        "reference": "Organization/837b67bf-132e-45ff-8a59-24938f8e12f9"
     }
 }
 
@@ -153,22 +152,22 @@ patient = Patient.parse_obj(patient_data)
 # 因為上面的問題，所以這裡使用 patient_data 進行序列化
 patient_json = orjson.dumps(patient_data, option=orjson.OPT_INDENT_2)
 
-# 發送 POST 請求到 HAPI FHIR 伺服器
-url = f'{sApiUrl}'
+# # 發送 POST 請求到 HAPI FHIR 伺服器
+# url = f'{sApiUrl}'
+# headers = {"Content-Type": "application/fhir+json",
+#            'Authorization': f'Bearer {sJWT}'
+#            }
+# response = requests.post(url, data=patient_json, headers=headers)
+#
+# print(response.status_code)
+# print(orjson.dumps(response.json(), option=orjson.OPT_INDENT_2).decode('utf-8'))
+
+# for update patient
+ptid = '108'
+url = f'{sApiUrl}/{ptid}'
 headers = {"Content-Type": "application/fhir+json",
            'Authorization': f'Bearer {sJWT}'
            }
-response = requests.post(url, data=patient_json, headers=headers)
-
+response = requests.put(url, data=patient_json, headers=headers)
 print(response.status_code)
-print(orjson.dumps(response.json(), option=orjson.OPT_INDENT_2).decode('utf-8'))
-
-# # for update patient
-# ptid = '108'
-# url = f'{sApiUrl}/{ptid}'
-# headers = {"Content-Type": "application/fhir+json",
-#            # 'Authorization': f'Bearer {sJWT}'
-#            }
-# response = requests.put(url, data=patient_json, headers=headers)
-# print(response.status_code)
-# print(response.json())
+print(response.json())

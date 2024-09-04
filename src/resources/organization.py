@@ -3,14 +3,14 @@ import requests
 
 from utilities.python.forOauth import get_token
 
-sApiUrl = 'http://172.18.0.60:8080/fhir/Organization'
+sApiUrl = 'http://172.18.0.53:10004/fhir/Organization'
 sJWT = get_token()
 
 organization = {
     "resourceType": "Organization",
-    "meta": {
-        "profile": ["https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Organization-hosp-twcore"]
-    },
+    # "meta": {
+    #     "profile": ["https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Organization-hosp-twcore"]
+    # },
     "text": {
         "status": "generated",
         "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">台灣醫事機構基本資料</div>"

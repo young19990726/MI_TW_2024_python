@@ -1,12 +1,17 @@
 import orjson
 import requests
 
-sApiUrl = 'http://fhirserver.ndmctsgh.edu.tw:18080/fhir/MolecularSequence'
-# sJWT = ''
+from utilities.python.forOauth import get_token
+
+sApiUrl = 'http://172.18.0.53:10004/fhir/MolecularSequence'
+sJWT = get_token()
 
 # 創建一個新的 MoleucularSequence 資源
 MolSeq_data = {
     "resourceType": "MolecularSequence",
+    "meta": {
+        "profile": ["http://hl7.org/fhir/StructureDefinition/MolecularSequence"]
+    },
     "text": {
         "status": "generated",
         "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\
@@ -59,7 +64,7 @@ MolSeq_json = orjson.dumps(MolSeq_data, option=orjson.OPT_INDENT_2)
 # 發送 POST 請求到 HAPI FHIR 伺服器
 url = f'{sApiUrl}'
 headers = {"Content-Type": "application/fhir+json",
-           # 'Authorization': f'Bearer {sJWT}'
+           'Authorization': f'Bearer {sJWT}'
            }
 response = requests.post(url, data=MolSeq_json, headers=headers)
 
