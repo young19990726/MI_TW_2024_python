@@ -13,7 +13,7 @@ settings = {
 }
 
 serverFhir = client.FHIRClient(settings=settings)
-# 指派 session 給 fhirclient
+# 直接指派 session 給 fhirclient
 serverFhir.server.session = getSessionWithToken()
 
 bundleMolSeqs = bundle.Bundle()
