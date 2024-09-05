@@ -13,10 +13,16 @@ def get_token():
     response = requests.post(url, data=payload, timeout=30)
 
     if response.status_code == 200:
+
+        token_data = response.json()
+        # print(token_data)
+        print("Token:", token_data['access_token'])
+
         token_data = response.json()['access_token']
         print(token_data)
         # print("Token:", token_data['access_token'])
         return token_data
+
     else:
         print(f"Failed to get token. Status code: {response.status_code}")
         print("Response:", response.text)
@@ -25,4 +31,5 @@ def get_token():
 if __name__ == "__main__":
 
     current_token = get_token()
-    get_access_token(current_token)
+    # print(current_token)
+    # get_access_token(current_token)
