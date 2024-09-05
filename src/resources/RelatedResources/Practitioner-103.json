@@ -1,8 +1,7 @@
 {
   "resourceType": "Practitioner",
-  "id": "103",
   "meta": {
-    "profile": [ "http://hl7.org/fhir/StructureDefinition/Practitioner" ]
+    "profile": ["https://hapi.fhir.tw/fhir/StructureDefinition/TWCorePractitioner"]
   },
   "identifier": [ {
     "system": "http://example.org/practitioners",

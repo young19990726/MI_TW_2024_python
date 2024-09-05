@@ -8,21 +8,24 @@ def get_token():
         'grant_type': 'client_credentials',
         'client_id': 'fhir-basic',
         'client_secret': 'UPa9VGhlwrInNup2W8PBldrxanWWsKW4'
-        # 'client_id': 'fhir-twcore-0.2.2',
-        # 'client_secret': '6ML54AFeVgMLoRe7cKqshc3171UmD0CI'
     }
 
     response = requests.post(url, data=payload, timeout=30)
 
     if response.status_code == 200:
+
         token_data = response.json()
         # print(token_data)
         print("Token:", token_data['access_token'])
-        return token_data['access_token']
+
+        token_data = response.json()['access_token']
+        print(token_data)
+        # print("Token:", token_data['access_token'])
+        return token_data
+
     else:
         print(f"Failed to get token. Status code: {response.status_code}")
         print("Response:", response.text)
-
 
 
 if __name__ == "__main__":

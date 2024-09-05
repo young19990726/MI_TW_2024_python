@@ -1,5 +1,6 @@
 {
   "resourceType": "Specimen",
+  "id": "120",
   "meta": {
     "profile": [
       "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Specimen-twcore"
