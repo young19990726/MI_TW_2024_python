@@ -28,6 +28,21 @@ def get_token():
         print("Response:", response.text)
 
 
+def getSessionWithToken():
+    # 取 token
+    sToken = get_token()
+    # 設定新的 header ，並且綁入 Bearer token
+    dictHeaders = {
+        'Authorization': f'Bearer {sToken}',
+        'Content-Type': 'application/json'
+    }
+    # 形成新的 session
+    sessionAuthored = requests.Session()
+    # 更新 header
+    sessionAuthored.headers.update(dictHeaders)
+    return sessionAuthored
+
+
 if __name__ == "__main__":
 
     current_token = get_token()

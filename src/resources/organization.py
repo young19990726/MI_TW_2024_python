@@ -8,6 +8,7 @@ sJWT = get_token()
 
 organization = {
     "resourceType": "Organization",
+    "id": "109",
     # "meta": {
     #     "profile": ["https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Organization-hosp-twcore"]
     # },
@@ -112,12 +113,23 @@ organization = {
 
 organization_json = orjson.dumps(organization, option=orjson.OPT_INDENT_2)
 
-# 發送 POST 請求到 HAPI FHIR 伺服器
-url = f'{sApiUrl}'
+# # 發送 POST 請求到 HAPI FHIR 伺服器
+# url = f'{sApiUrl}'
+# headers = {"Content-Type": "application/fhir+json",
+#            'Authorization': f'Bearer {sJWT}'
+#            }
+# response = requests.post(url, data=organization_json, headers=headers)
+#
+# print(response.status_code)
+# print(response.json())
+
+# 發送 put 請求到 HAPI FHIR 伺服器
+orgid = '109'
+url = f'{sApiUrl}/{orgid}'
 headers = {"Content-Type": "application/fhir+json",
            'Authorization': f'Bearer {sJWT}'
            }
-response = requests.post(url, data=organization_json, headers=headers)
+response = requests.put(url, data=organization_json, headers=headers)
 
 print(response.status_code)
 print(response.json())
