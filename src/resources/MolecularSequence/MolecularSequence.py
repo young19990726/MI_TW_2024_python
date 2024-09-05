@@ -9,6 +9,7 @@ sJWT = get_token()
 # 創建一個新的 MoleucularSequence 資源
 MolSeq_data = {
     "resourceType": "MolecularSequence",
+    "id": "e2dcfefb-0a0b-4933-80b1-c8d73aeddfd6",
     "meta": {
         "profile": ["http://hl7.org/fhir/StructureDefinition/MolecularSequence"]
     },
@@ -24,6 +25,7 @@ MolSeq_data = {
     },
     "type": "dna",
     "coordinateSystem": 1,
+    "subject": { "reference": "Patient/108" },
     "patient": {
         "reference": "Patient/108",
         "display": "Molecular Lab Patient ID: MEDNO=123456"
@@ -32,6 +34,7 @@ MolSeq_data = {
         "reference": "Specimen/120",
         "display": "Molecular Specimen ID: MLD45-Z4-1234"
     },
+    "chromosome": { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/chromosome-human", "code": "7", "display": "chromosome 7" }]},
     "referenceSeq": {
         'chromosome': {
             "coding": [
@@ -47,6 +50,7 @@ MolSeq_data = {
         "windowEnd": 55191822,
         "strand": "watson"
     },
+    "observedSeq": "G",
     "variant": [
         {
             "start": 55191822,
@@ -61,12 +65,25 @@ MolSeq_data = {
 # 將 MoleucularSequence 資源轉換為 JSON
 MolSeq_json = orjson.dumps(MolSeq_data, option=orjson.OPT_INDENT_2)
 
-# 發送 POST 請求到 HAPI FHIR 伺服器
-url = f'{sApiUrl}'
+print(MolSeq_json.decode('utf-8'))
+
+# # 發送 POST 請求到 HAPI FHIR 伺服器
+# url = f'{sApiUrl}'
+# headers = {"Content-Type": "application/fhir+json",
+#            'Authorization': f'Bearer {sJWT}'
+#            }
+# response = requests.post(url, data=MolSeq_json, headers=headers)
+#
+# print(response.status_code)
+# print(response.json())
+
+# 發送 put 請求到 HAPI FHIR 伺服器
+sMrid = 'e2dcfefb-0a0b-4933-80b1-c8d73aeddfd6'
+url = f'{sApiUrl}/{sMrid}'
 headers = {"Content-Type": "application/fhir+json",
            'Authorization': f'Bearer {sJWT}'
            }
-response = requests.post(url, data=MolSeq_json, headers=headers)
+response = requests.put(url, data=MolSeq_json, headers=headers)
 
 print(response.status_code)
 print(response.json())

@@ -1,15 +1,20 @@
 from fhirclient import client
 from fhirclient.models.medicationrequest import MedicationRequest
 
+from utilities.python.forOauth import getSessionWithToken
+
+sessionAuthed = getSessionWithToken()
+
 # 初始化 FHIR 客戶端
 settings = {
     'app_id': 'FHIRConverter',
-    'api_base': 'http://fhirserver.ndmctsgh.edu.tw:18080/fhir'
+    'api_base': 'http://172.18.0.53:10004/fhir'
 }
 fhirServer = client.FHIRClient(settings=settings)
+fhirServer.server.session = sessionAuthed
 
 # 患者的 ID
-patient_id = '108'
+patient_id = '87b49b54-e4da-466e-813f-fab67b256e8e'
 
 # # 查詢患者的藥物處方
 # medication_requests = MedicationRequest.where({'patient': patient_id}).perform(fhirServer.server)
