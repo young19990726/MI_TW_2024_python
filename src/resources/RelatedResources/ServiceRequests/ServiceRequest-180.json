@@ -1,11 +1,5 @@
 {
   "resourceType": "ServiceRequest",
-  "id": "180",
-  "meta": {
-    "versionId": "4",
-    "lastUpdated": "2024-08-26T08:29:38.599+00:00",
-    "source": "#yIf59sttGYhcxafb"
-  },
   "status": "active",
   "intent": "order",
   "priority": "routine",
@@ -18,16 +12,16 @@
     "text": "Cardiac output monitoring"
   },
   "subject": {
-    "reference": "Patient/108",
+    "reference": "Patient/9973d6ee-8327-44e3-993d-d48bd420ee21",
     "display": "高東萬"
   },
   "authoredOn": "2024-08-22T10:00:00Z",
   "requester": {
-    "reference": "Practitioner/103",
+    "reference": "Practitioner/a8cb3a4c-5387-4984-b461-25f95c381e64",
     "display": "John Smith"
   },
   "performer": [ {
-    "reference": "Practitioner/103",
+    "reference": "Practitioner/a8cb3a4c-5387-4984-b461-25f95c381e64",
     "display": "John Smith"
   } ],
   "reasonCode": [ {
@@ -40,7 +34,7 @@
   } ],
   "note": [ {
     "authorReference": {
-      "reference": "Practitioner/103"
+      "reference": "Practitioner/a8cb3a4c-5387-4984-b461-25f95c381e64"
     },
     "time": "2024-08-22T10:00:00Z",
     "text": "Patient to be monitored twice daily."

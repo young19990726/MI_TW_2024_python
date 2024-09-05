@@ -1,15 +1,17 @@
 import orjson
 import requests
 
-sApiUrl = 'http://fhirserver.ndmctsgh.edu.tw:18080/fhir/Organization'
-sJWT = ''
+from utilities.python.forOauth import get_token
+
+sApiUrl = 'http://172.18.0.53:10004/fhir/Organization'
+sJWT = get_token()
 
 organization = {
     "resourceType": "Organization",
     "id": "109",
-    "meta": {
-        "profile": ["https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Organization-hosp-twcore"]
-    },
+    # "meta": {
+    #     "profile": ["https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Organization-hosp-twcore"]
+    # },
     "text": {
         "status": "generated",
         "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">台灣醫事機構基本資料</div>"
@@ -109,14 +111,25 @@ organization = {
     ]
 }
 
-organization_json = orjson.dumps(organization)
+organization_json = orjson.dumps(organization, option=orjson.OPT_INDENT_2)
 
-# 發送 POST 請求到 HAPI FHIR 伺服器
-url = f'{sApiUrl}'
+# # 發送 POST 請求到 HAPI FHIR 伺服器
+# url = f'{sApiUrl}'
+# headers = {"Content-Type": "application/fhir+json",
+#            'Authorization': f'Bearer {sJWT}'
+#            }
+# response = requests.post(url, data=organization_json, headers=headers)
+#
+# print(response.status_code)
+# print(response.json())
+
+# 發送 put 請求到 HAPI FHIR 伺服器
+orgid = '109'
+url = f'{sApiUrl}/{orgid}'
 headers = {"Content-Type": "application/fhir+json",
-           # 'Authorization': f'Bearer {YOUR_JWT_TOKEN}'
+           'Authorization': f'Bearer {sJWT}'
            }
-response = requests.post(url, data=organization_json, headers=headers)
+response = requests.put(url, data=organization_json, headers=headers)
 
 print(response.status_code)
 print(response.json())

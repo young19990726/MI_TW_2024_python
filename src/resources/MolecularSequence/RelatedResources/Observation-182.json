@@ -1,8 +1,9 @@
 {
   "resourceType": "Observation",
+  "id": "182",
   "meta": {
     "profile": [
-      "https://standard-interoperability-lab.com/fhir/StructureDefinition/Observationtwcore"
+      "http://hl7.org/fhir/StructureDefinition/Observation"
     ]
   },
   "text": {

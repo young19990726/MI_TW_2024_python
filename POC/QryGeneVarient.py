@@ -1,16 +1,20 @@
 import orjson
+import requests
 from fhirclient import client
-from fhirclient.models import bundle, molecularsequence
+from fhirclient.models import bundle
 from fhirclient.models.bundle import BundleEntry
 from fhirclient.models.molecularsequence import MolecularSequence
 
+from utilities.python.forOauth import getSessionWithToken
 
 settings = {
     'app_id': 'FHIRConverter',
-    'api_base': 'http://fhirserver.ndmctsgh.edu.tw:18080/fhir'
+    'api_base': 'http://172.18.0.53:10004/fhir'
 }
 
 serverFhir = client.FHIRClient(settings=settings)
+# 直接指派 session 給 fhirclient
+serverFhir.server.session = getSessionWithToken()
 
 bundleMolSeqs = bundle.Bundle()
 bundleMolSeqs.type = 'searchset'

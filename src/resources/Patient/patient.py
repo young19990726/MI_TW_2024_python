@@ -1,31 +1,16 @@
+import json
+import sys
+
+from pathlib import Path
+from requests import put, RequestException
+
+sys.path.append(str(Path(__file__).resolve().parent.parent.parent.parent))
+
+from utilities.python.forOauth import get_token
+
 # import base64
 # import orjson
 # from fhir.resources.patient import Patient
-
-# from utilities.python.forOauth import get_token
-
-import json
-import requests
-from requests import put, RequestException
-
-def get_token():
-
-    url = "http://172.18.0.58:8080/realms/mitw/protocol/openid-connect/token"
-
-    payload = {
-        'grant_type': 'client_credentials',
-        'client_id': 'fhir-basic',
-        'client_secret': 'UPa9VGhlwrInNup2W8PBldrxanWWsKW4'
-   }
-
-    response = requests.post(url, data=payload, timeout=30)
-
-    if response.status_code == 200:
-        token_data = response.json()
-        return token_data['access_token']
-    else:
-        print(f"Failed to get token. Status code: {response.status_code}")
-        print("Response:", response.text)
 
 def validate_patient_data(data):
 

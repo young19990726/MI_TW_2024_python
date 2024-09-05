@@ -1,10 +1,15 @@
 {
   "resourceType": "MedicationRequest",
+  "id": "179",
   "meta": {
     "profile": [
-      "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/MedicationRequest-twcore"
+      "https://hapi.fhir.tw/fhir/StructureDefinition/MedicationRequest-MITWConnectathon2023Track5SC1"
     ]
   },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">MedicationRequest for BP</div>"
+},
   "status": "active",
   "intent": "order",
   "medicationCodeableConcept": {
