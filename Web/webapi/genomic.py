@@ -1,15 +1,12 @@
 # 使用 Resource 定義 API 操作
 from fhirclient import client
-from fhirclient.auth import FHIROAuth2Auth
-from fhirclient.models import molecularsequence, bundle
+from fhirclient.models import bundle
 from fhirclient.models.bundle import BundleEntry
 from fhirclient.models.molecularsequence import MolecularSequence
 from flask import request, send_from_directory
-from flask_restx import Resource, fields, Api, Namespace
+from flask_restx import Resource, fields, Namespace
 
-from Web.webapi.route import fhirServer
-from utilities.python.forOauth import get_token
-
+from utilities.python.forOauth import getSessionWithToken
 
 settings = {
     'app_id': 'FHIRConverter',
@@ -35,8 +32,7 @@ class geneVarientSearchHandler(Resource):
     @ns.expect(data_model)
     @ns.doc('search_molecular_sequence')
     def post(self):
-        access_token = get_token()
-        fhirServer.launch_token = access_token
+        serverFhir.server.session = getSessionWithToken()
         bundleMolSeqs = bundle.Bundle()
         bundleMolSeqs.type = 'searchset'
         dataSearch = request.json
