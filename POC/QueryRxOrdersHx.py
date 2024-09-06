@@ -1,6 +1,12 @@
+import sys
+
+from pathlib import Path
 import orjson
+
 from fhirclient import client
 from fhirclient.models.medicationrequest import MedicationRequest
+
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from utilities.python.forOauth import getSessionWithToken
 
@@ -32,8 +38,11 @@ patient_id = '108'
 
 # 或者也可以這樣寫
 # 查詢患者的藥物處方
+medication_requests = MedicationRequest.where({'patient': patient_id}).perform_resources(fhirServer.server)
+
 medication_requests = MedicationRequest.where({'patient': patient_id, 'status':'active'}).perform_resources(fhirServer.server)
 # medication_requests = MedicationRequest.where({'patient': patient_id, 'requester': '941ccaa6-6668-4124-90d6-90127102a9da'}).perform_resources(fhirServer.server)
+
 
 # 輸出藥物處方
 for med_req in medication_requests:
