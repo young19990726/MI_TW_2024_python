@@ -5,13 +5,23 @@ import decimal
 import numpy as np
 import matplotlib.pyplot as plt
 
+from utilities.python.forOauth import getSessionWithToken
 
+# settings = {
+#     'app_id': 'FHIRConverter',
+#     'api_base': 'http://fhirserver.ndmctsgh.edu.tw:18080/fhir'
+# }
+
+sessionAuthed = getSessionWithToken()
+
+# 初始化 FHIR 客戶端
 settings = {
     'app_id': 'FHIRConverter',
-    'api_base': 'http://fhirserver.ndmctsgh.edu.tw:18080/fhir'
+    'api_base': 'http://172.18.0.53:10004/fhir'
 }
 
 serverFhir = client.FHIRClient(settings=settings)
+serverFhir.server.session = sessionAuthed
 
 SvcReqSearch = ServiceRequest.where(struct={'code': 'http://snomed.info/sct|3130004'})
 listSvcReqEkg = SvcReqSearch.perform_resources(serverFhir.server)

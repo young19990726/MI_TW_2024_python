@@ -6,12 +6,17 @@ from fhirclient.models.observation import Observation
 from fhirclient.models.servicerequest import ServiceRequest
 from fhirclient.models.bundle import Bundle, BundleEntry
 
+from utilities.python.forOauth import getSessionWithToken, get_token
+
+sessionAuthed = getSessionWithToken()
 # FHIR server settings
 settings = {
     'app_id': 'FHIRConverter',
-    'api_base': 'http://fhirserver.ndmctsgh.edu.tw:18080/fhir'
+    'api_base': 'http://172.18.0.53:10004/fhir'
 }
 fhirServer = client.FHIRClient(settings=settings)
+
+fhirServer.server.session = sessionAuthed
 
 # Define EKG and BMD codes
 ecg_codes = ['3130004', '131328']
@@ -42,7 +47,8 @@ def searchObservation():
             loinc_code = request.form.get('CODE')
             url = f"{fhirServer.server.base_uri}/Observation?patient={patient_id}&code={loinc_code}"
 
-            headers = {'Content-Type': 'application/fhir+json'}
+            sToken = get_token()
+            headers = {'Content-Type': 'application/fhir+json', 'Authorization':f'Bearer {sToken}'}
             response = requests.get(url, headers=headers)
             bundle = Bundle(response.json())
             observations = [entry.resource.as_json() for entry in bundle.entry]
