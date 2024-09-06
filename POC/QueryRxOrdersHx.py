@@ -1,5 +1,11 @@
+import sys
+
+from pathlib import Path
+
 from fhirclient import client
 from fhirclient.models.medicationrequest import MedicationRequest
+
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from utilities.python.forOauth import getSessionWithToken
 
@@ -29,7 +35,7 @@ patient_id = '87b49b54-e4da-466e-813f-fab67b256e8e'
 # 或者也可以這樣寫
 # 查詢患者的藥物處方
 medication_requests = MedicationRequest.where({'patient': patient_id}).perform_resources(fhirServer.server)
-
+quit()
 # 輸出藥物處方
 for med_req in medication_requests:
     print(f"Medication: {med_req.medicationCodeableConcept.text}")
